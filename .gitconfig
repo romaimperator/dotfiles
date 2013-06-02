@@ -1,0 +1,45 @@
+[user]
+  name = Daniel Fox
+  email = romaimperator@gmail.com
+[color]
+  ui = auto
+[core]
+  editor = vim
+[alias]
+  ffs=flow feature start
+  fff=flow feature finish
+  ffr=flow feature rebase
+
+  fhs=flow hotfix start
+  fhf=flow hotfix finish
+
+  frs=flow release start
+  frf=flow release finish
+
+  head = !git l -1
+  h = !git head
+  hp = "!source ~/.githelpers && show_git_head"
+
+  r = !git l -30
+  ra = !git r --all
+
+  l = "!source ~/.githelpers && pretty_git_log"
+  la = !git l --all
+
+  dc = diff --cached
+
+  m  = merge --no-ff
+
+  c = commit
+  cm = commit -m
+
+  co = checkout
+  ch = checkout HEAD
+
+  au = add -u
+  ap = add -p
+  aa = add -A
+
+  re = reset
+  rh = reset --hard
+

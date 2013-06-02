@@ -1,0 +1,86 @@
+*.DS_Store
+/Applications
+/BBTRepair.spf
+/BTSync
+/Desktop
+/Documents
+/Downloads
+/Dropbox
+/Library
+/Movies
+/Music
+/P90X.Xtreme.Workout.Series.COMPLETE PACK.DVDrip.Xvid-SCP
+/Pictures
+/Public
+/Shows
+/Sites
+/Sites_blog
+/Stuff
+/VirtualBox VMs
+/Warhammer Fantasy
+/bad code examples
+/bin
+/build
+/design_for_blog
+/dwhelper
+/forge
+/git-sh
+/go-pear.phar
+/nist_fips.txt
+/office for mac key.rtf
+/pear
+/points query ordered more.csv
+/practice
+/projects
+/states with names.csv
+/temp rtorrent
+/test county parsed csv.txt
+/test county python list.txt
+/test county.csv
+/test_counties.txt
+/vim
+/virus_removal.txt
+/wordpress
+.CFUserTextEncoding
+.Trash
+.Xauthority
+.adobe
+.bash_history
+.bash_login
+.cache
+.config
+.cups
+.dropbox
+.filezilla
+.gem
+.git
+.irb-history
+.keepassx
+.lesshst
+.mplayer
+.mysql_history
+.oh-my-zsh
+.pearrc
+.pgadmin_histoqueries
+.pgpass
+.php_history
+.psi
+.psql_history
+.python-eggs
+.rnd
+.rvm
+.sh_history
+.slate
+.smb
+.ssh
+.subversion
+.unison
+.viminfo
+.wireshark
+.wireshark-etc
+.xbmc
+.xinitrc
+.zcompdump
+.zlogin
+.zsh-update
+.zsh_history
