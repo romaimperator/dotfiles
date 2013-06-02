@@ -93,3 +93,6 @@ alias g='generate'
 source .rvm/scripts/rvm
 rvm use 1.9.3
 
+# Make C-s and C-q useable
+stty -ixon -ixoff
+
