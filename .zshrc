@@ -79,6 +79,8 @@ alias podsync="rsync -av --progress ~/Music/iTunes/iTunes\\ Media/Podcasts stora
 alias cdtaf="cd ~/Dropbox/TrustAuth/trustauth-firefox/"
 alias cdtaw="cd ~/Dropbox/TrustAuth/trustauth-wordpress-svn/"
 alias cdtac="cd ~/Dropbox/TrustAuth/trustauth-chrome/"
+alias cdasi="cd ~/projects/asi"
+alias cdbbt="cd ~/projects/bbt"
 
 # Mkdir Aliases
 alias mkdirp="mkdir -p"
