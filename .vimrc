@@ -125,6 +125,7 @@ set laststatus=2
 set showmatch
 set incsearch
 set hlsearch
+set number
 
 set wildmode=longest,list
 " make tab completion for files/buffers act like bash
