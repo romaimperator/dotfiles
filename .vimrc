@@ -9,8 +9,9 @@ Bundle 'gmarik/vundle'
 "
 " original repos on github
 Bundle 'tpope/vim-fugitive'
-" non github repos
+
 Bundle 'git://git.wincent.com/command-t.git'
+
 " L9 required for FuzzyFinder
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -39,6 +40,9 @@ Bundle 'rosstimson/scala-vim-support'
 Bundle 'cakebaker/scss-syntax.vim'
 Bundle 'slim-template/vim-slim'
 Bundle 'timcharper/textile.vim'
+
+
+Bundle 'junegunn/vim-easy-align'
 
 filetype plugin indent on
 
@@ -98,6 +102,7 @@ endfunction
 
 "vmap \a :call AlignBlock()<CR>
 vmap \a :call Align =<CR>
+vmap <silent> <Enter> :EasyAlign<cr>
 
 set ttimeoutlen=50
 
