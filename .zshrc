@@ -29,7 +29,7 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(osx git python)
+plugins=(osx git git-flow python)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -79,6 +79,8 @@ alias podsync="rsync -av --progress ~/Music/iTunes/iTunes\\ Media/Podcasts stora
 alias cdtaf="cd ~/Dropbox/TrustAuth/trustauth-firefox/"
 alias cdtaw="cd ~/Dropbox/TrustAuth/trustauth-wordpress-svn/"
 alias cdtac="cd ~/Dropbox/TrustAuth/trustauth-chrome/"
+alias cdasi="cd ~/projects/asi"
+alias cdbbt="cd ~/projects/bbt"
 
 # Mkdir Aliases
 alias mkdirp="mkdir -p"
