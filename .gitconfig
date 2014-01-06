@@ -5,6 +5,7 @@
   ui = auto
 [core]
   editor = vim
+  excludesfile = /Users/dan/.gitignore_global
 [alias]
   ffs=flow feature start
   fff=flow feature finish
