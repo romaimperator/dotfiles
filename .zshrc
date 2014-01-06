@@ -37,7 +37,7 @@ plugins=(osx git git-flow python)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/Users/dan/pear/bin:/Users/dan/.rvm/gems/ruby-1.9.3-p194/bin:/Users/dan/.rvm/gems/ruby-1.9.3-p194@global/bin:/Users/dan/.rvm/rubies/ruby-1.9.3-p194/bin:/Users/dan/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Users/dan/.rvm/bin
+export PATH=/Users/dan/pear/bin:/Users/dan/.rvm/gems/ruby-1.9.3-p484/bin:/Users/dan/.rvm/gems/ruby-1.9.3-p484@global/bin:/Users/dan/.rvm/rubies/ruby-1.9.3-p484/bin:/Users/dan/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Users/dan/.rvm/bin:$PATH
 export MANPATH=$MANPATH:/opt/local/share/man
 
 export CC=/usr/bin/gcc
@@ -52,6 +52,7 @@ prompt grb
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/pgsql/bin
+PATH=$PATH:~/bin
 
 export TERM='xterm-color'
 alias ls='ls -G'
