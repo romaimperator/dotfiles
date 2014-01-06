@@ -1,7 +1,11 @@
 *.DS_Store
 /Applications
 /BBTRepair.spf
+/BTDropbox
+/BTPhone
+/BTPhoneTitaniumBackup
 /BTSync
+/DAS
 /Desktop
 /Documents
 /Downloads
@@ -40,6 +44,7 @@
 /test_counties.txt
 /vim
 /virus_removal.txt
+/Your Deceptive Mind
 /wordpress
 .CFUserTextEncoding
 .Trash
@@ -84,3 +89,4 @@
 .zlogin
 .zsh-update
 .zsh_history
+
