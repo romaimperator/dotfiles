@@ -75,6 +75,7 @@ alias sshdepta="ssh deploy@trustauth.com -C"
 alias sshrootta="ssh root@trustauth.com -C"
 alias sshhackta="ssh root@hack.trustauth.com -C"
 alias sshcluster3="ssh user@cluster-3.local -C"
+alias sshroma="ssh romaimperato@romaimperato.cloud.sn -p 31122 -C"
 
 # Rsync Aliases
 alias podsync="rsync -av --progress ~/Music/iTunes/iTunes\\ Media/Podcasts storage@192.168.1.121::podcasts"
