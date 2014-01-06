@@ -50,6 +50,7 @@ filetype plugin indent on
 " Set the Ruby filetype for a number of common Ruby files without .rb
 au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,config.ru,*.rake} set ft=ruby
 
+set shell=/bin/zsh
 
 colorscheme molokai
 :set t_Co=256
