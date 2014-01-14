@@ -138,6 +138,10 @@ set wildmode=longest,list
 set wildmenu
 let mapleader=","
 
+
+" GRB: use fancy buffer closing that doesn't close the split
+cnoremap <expr> bd (getcmdtype() == ':' ? 'Bclose' : 'bd')
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 " display incomplete commands
