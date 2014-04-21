@@ -37,7 +37,8 @@ plugins=(osx git git-flow python)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/Users/dan/pear/bin:/Users/dan/.rvm/gems/ruby-1.9.3-p484/bin:/Users/dan/.rvm/gems/ruby-1.9.3-p484@global/bin:/Users/dan/.rvm/rubies/ruby-1.9.3-p484/bin:/Users/dan/.rvm/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:/Users/dan/.rvm/bin:$PATH
+export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/X11/bin:$PATH:/usr/local/globus-5.2.5/bin
+#export PATH=/Users/dan/pear/bin:$PATH
 export MANPATH=$MANPATH:/opt/local/share/man
 
 export CC=/usr/bin/gcc
@@ -50,9 +51,9 @@ autoload -U promptinit
 promptinit
 prompt grb
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 PATH=$PATH:/usr/local/pgsql/bin
 PATH=$PATH:~/bin
+PATH=/usr/local/sbin:/usr/local/bin:$PATH
 
 export TERM='xterm-color'
 alias ls='ls -G'
@@ -97,9 +98,9 @@ alias neonsync="unison "
 alias r='rails'
 alias g='generate'
 
-source .rvm/scripts/rvm
-rvm use 1.9.3
-
 # Make C-s and C-q useable
 stty -ixon -ixoff
+
+# Initialize rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
