@@ -54,13 +54,15 @@ prompt grb
 PATH=$PATH:/usr/local/pgsql/bin
 PATH=$PATH:~/bin
 PATH=/usr/local/sbin:/usr/local/bin:$PATH
+PATH=$PATH:~/Library/Haskell/bin
 
-export TERM='xterm-color'
+#export TERM='xterm-color'
 alias ls='ls -G'
 alias ll='ls -lG'
 alias duh='du -csh'
 export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
+export EDITOR=vim
 
 # MYSQL Database Vars
 export MYSQL_USERNAME='root'
@@ -97,8 +99,17 @@ alias neonsync="unison "
 alias r='rails'
 alias g='generate'
 
+# .zshrc
+alias tmux="TERM=screen-256color-bce tmux"
+
 # Make C-s and C-q useable
 stty -ixon -ixoff
+
+# Load up ssh-agent with mah ssh keys
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval `ssh-agent -s`
+  ssh-add
+fi
 
 # Initialize rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

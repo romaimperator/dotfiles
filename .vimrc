@@ -1,51 +1,96 @@
-set rtp+=~/.vim/bundle/vundle/
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#rc()
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 " My Bundles here:
 "
 " original repos on github
-Bundle 'tpope/vim-fugitive'
+Plugin 'tpope/vim-fugitive'
 
-Bundle 'git://git.wincent.com/command-t.git'
+Plugin 'git://git.wincent.com/command-t.git'
 
 " L9 required for FuzzyFinder
-Bundle 'L9'
-Bundle 'FuzzyFinder'
-Bundle 'guns/xterm-color-table.vim'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
+Plugin 'guns/xterm-color-table.vim'
 
 " Color Schemes
-Bundle 'vim-scripts/molokai'
+Plugin 'vim-scripts/molokai'
+Plugin 'altercation/vim-colors-solarized'
 
 " Syntax Repos
-Bundle 'tpope/vim-commentary.git'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-git'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-rbenv.git'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'chrisbra/csv.vim'
-Bundle 'wlangstroth/vim-haskell'
-Bundle 'pangloss/vim-javascript'
-Bundle 'groenewege/vim-less'
-Bundle 'tpope/vim-markdown'
-Bundle 'sunaku/vim-ruby-minitest'
-Bundle 'mmalecki/vim-node.js'
-Bundle 'ajf/puppet-vim'
-Bundle 'skwp/vim-rspec'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'rosstimson/scala-vim-support'
-Bundle 'cakebaker/scss-syntax.vim'
-Bundle 'slim-template/vim-slim'
-Bundle 'timcharper/textile.vim'
+Plugin 'tpope/vim-commentary.git'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails.git'
+Plugin 'tpope/vim-rbenv.git'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'chrisbra/csv.vim'
+Plugin 'wlangstroth/vim-haskell'
+Plugin 'pangloss/vim-javascript'
+Plugin 'groenewege/vim-less'
+Plugin 'tpope/vim-markdown'
+Plugin 'sunaku/vim-ruby-minitest'
+Plugin 'mmalecki/vim-node.js'
+Plugin 'ajf/puppet-vim'
+Plugin 'skwp/vim-rspec'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'rosstimson/scala-vim-support'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'slim-template/vim-slim'
+Plugin 'timcharper/textile.vim'
+Plugin 'jgdavey/tslime.vim'
 
+Plugin 'junegunn/vim-easy-align'
 
-Bundle 'junegunn/vim-easy-align'
+"call plug#begin('~/.vim/bundle')
+"
+"Plug 'tpope/vim-fugitive'
+"Plug 'git://git.wincent.com/command-t.git'
+"Plug 'L9'
+"Plug 'FuzzyFinder'
+"Plug 'guns/xterm-color-table.vim'
+"
+"" Color Schemes
+"Plug 'vim-scripts/molokai', { 'on': 'molokai' }
+"Plug 'altercation/vim-colors-solarized'
+"
+"" Syntax Repos
+"Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-cucumber', { 'for': 'cucumber' }
+"Plug 'tpope/vim-git'
+"Plug 'tpope/vim-haml', { 'for': 'haml' }
+"Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-rbenv'
+"Plug 'kchmck/vim-coffee-script', { 'for': 'coffeescript' }
+"Plug 'chrisbra/csv.vim', { 'for': 'csv' }
+"Plug 'wlangstroth/vim-haskell', { 'for': 'haskell' }
+"Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+"Plug 'groenewege/vim-less', { 'for': 'less' }
+"Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+"Plug 'sunaku/vim-ruby-minitest'
+"Plug 'mmalecki/vim-node.js', { 'for': 'node' }
+"Plug 'ajf/puppet-vim'
+"Plug 'skwp/vim-rspec', { 'for': 'rspec' }
+"Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+"Plug 'rosstimson/scala-vim-support', { 'for': 'scala' }
+"Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+"Plug 'slim-template/vim-slim'
+"Plug 'timcharper/textile.vim'
+"Plug 'jgdavey/tslime.vim'
+"
+"Plug 'junegunn/vim-easy-align'
+"
+"call plug#end()
 
+"filetype plugin indent on " Handled by vim-plug, plug#end()
 filetype plugin indent on
 
 " Set some file types
@@ -54,14 +99,20 @@ au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,Procfile,Guardfile,
 
 set shell=/bin/zsh
 
-colorscheme molokai
-:set t_Co=256
+"syntax on " Handled by vim-plug, plug#end()
+syntax on
+set t_Co=256
+set background=light
+let g:solarized_termcolors=16
+let g:solarized_termtrans=1
+colorscheme solarized
+"colorscheme molokai
 
 set shell=/bin/sh
 set ttymouse=xterm2
 set mouse=a
+set cc=80
 
-syntax on
 set wrap
 
 map <F1> :bf<CR>
@@ -75,6 +126,8 @@ map <C-k> <C-W>k
 map <C-l> <C-W>l
 map <C-s> :w<CR>
 au BufNewFile,BufRead *.jsm setf javascript
+
+au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 
 
 function AlignBlock() range
@@ -120,6 +173,11 @@ set cursorline
 " allow unsaved background buffers and remember marks/undo for them
 set hidden
 set winwidth=79
+set winminwidth=20
+set winwidth=79
+set winheight=5
+set winminheight=5
+set winheight=999
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
@@ -205,6 +263,8 @@ map <leader>T :call RunNearestTest()<cr>
 map <leader>a :call RunTests('')<cr>
 map <leader>c :w\|:!script/features<cr>
 map <leader>w :w\|:!script/features --profile wip<cr>
+"map <leader>c :w\|:call Send_to_Tmux("script/features\n")<cr>
+"map <leader>w :w\|:call Send_to_Tmux("script/features --profile wip\n")<cr>
 
 function! RunTestFile(...)
     if a:0
@@ -248,8 +308,18 @@ function! RunTests(filename)
         echo "show filename: " . a:filename
         if filereadable("tests.sh")
             exec ":!./tests.sh " . a:filename
+            "let cmd = 'rspec --color --format progress --require "~/lib/vim_rspec_formatter" --format VimFormatter'
+            "call Send_to_Tmux("spring " . cmd . "\n")
+            "exec ":!echo " . cmd . " " . a:filename . " > .test-commands"
+
+            " Write an empty string to block until the command completes
+            "sleep 100m " milliseconds
+            ":!echo > .test-commands
+            "redraw!
         elseif filereadable("script/test")
+            "call Send_to_Tmux("script/test " . a:filename . "\n")
             exec ":!script/test " . a:filename
+            "redraw!
         elseif filereadable("Gemfile")
             exec ":!bundle exec rspec --color " . a:filename
         else

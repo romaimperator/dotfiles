@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+compressed_file=$1
+output_folder=$2
+
+cat $compressed_file | lz4 -d - | tar -xf - -C $output_folder

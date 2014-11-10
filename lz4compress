@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+src_to_compress=$1
+output_file=$2
+
+tar -c $src_to_compress | lz4 -c > $output_file

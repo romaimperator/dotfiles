@@ -1,11 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 login=romaimperat
 pass=BOIsX7YQF8Vo3Eip
 host=hestia.feralhosting.com
 remote_dir="private/rtorrent/lftp"
+#remote_dir="private/rtorrent/completed"
 local_dir="/Volumes/other/torrents/testing_extraction"
 
-SEGMENTS=60
+SEGMENTS=15
 
 trap "rm -f /tmp/syncferal.lock" SIGINT SIGTERM
 lftp_download() {
@@ -17,35 +18,37 @@ lftp_download() {
     touch /tmp/syncferal.lock
 
   #set ftp:ssl-allow no
-    #lftp -p 22 -u $login,$pass sftp://$host << EOF
-    lftp -u $login,$pass ftp://$host << EOF
+    #lftp -u $login,$pass ftp://$host << EOF
+    /usr/local/bin/lftp -p 22 -u $login,$pass sftp://$host << EOF
 #set net:limit-total-rate 2560K:100K
-set net:limit-total-rate 2560K:100K
+set net:limit-total-rate 5500K:200K
 #set sftp:connect-program sftp
 #set ssl:verify-certificate no
-#set ftp:ssl-protect-data yes
+set ftp:ssl-protect-data yes
 #set ftp:ssl-protect-list yes
 #set ftp:ssl-auth TLS
-#set ftp:ssl-allow yes
-#set ftp:ssl-force yes
-#set ftp:passive-mode on
-set net:connection-limit 20
+set ftp:ssl-allow yes
+set ftp:ssl-force yes
+set ftp:passive-mode on
+#set net:connection-limit 20
 set ftp:sync-mode false
-set net:max-retries 2
+set net:max-retries 5
 set pget:save-status 1
 set pget:default-n $SEGMENTS
 set mirror:use-pget-n $SEGMENTS
 set mirror:parallel-transfer-count 1
 set mirror:parallel-directories true
 set ftp:nop-interval 10
+set cache:enable true
 mirror -c --log=sync_feral_log.log $remote_dir $local_dir
 #pget -c -n 30 $remote_dir $local_dir
 quit
 EOF
+  echo "lftp sync complete."
 
 #lftp_download
 
-  rm -f /tmp/syncferal.lock
+  /bin/rm -f /tmp/syncferal.lock
 #exit 0
 fi
 }
@@ -137,7 +140,7 @@ split_file() {
 }
 
 download_parts() {
-  parallel -0 --no-notice --retries 2 --bar -u -n 1 -P $SEGMENTS -I% rsync -hav --bwlimit=$SEGMENT_BANDWIDTH --partial --progress --quiet \"$login@$host:private/rtorrent/lftp/%\" $local_dir/%
+  parallel -0 --delay 0.5 --no-notice --retries 10 --bar -u -n 1 -P $SEGMENTS -I% rsync -have/usr/bin/ssh --bwlimit=$SEGMENT_BANDWIDTH --partial --progress --quiet "$login@$host:\"private/rtorrent/lftp/%\"" $local_dir/%
 }
 
 create_directory_hierarchy() {
@@ -149,7 +152,7 @@ create_directory_hierarchy() {
 }
 
 find_parts() {
-  find "$1" -name "$2.*" -print0
+  find "$1" -name $(iconv -f utf-8 -t utf-8-mac <<< "$2.*") -print0 # This iconv utility converts the unicode characters coming in to the decomposed format that they are stored in for filenames. See here for more http://apple.stackexchange.com/questions/95483/utf8-filenames-and-shell-utilities
 }
 
 escape_single_quotes() {
@@ -228,9 +231,16 @@ main2() {
   echo "Finished with all files!"
 }
 
-#trap "exit 0" SIGINT
+trap "rm -f /tmp/syncferal.lock && exit 1" SIGINT SIGTERM
 
 #main
 #main2
-lftp_download
+
+/usr/bin/ssh -n feralnew bash -c "'
+python move_files_to_lftp.py
+'" &&
+lftp_download &&
+/usr/bin/ssh -n feralnew bash -c "'
+python multicall_xmlrpc.py
+'"
 
