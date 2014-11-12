@@ -1,0 +1,72 @@
+config defaultToCurrentScreen true
+config nudgePercentOf         screenSize
+config resizePercentOf        screenSize
+config checkDefaultsOnLoad    true
+
+# Monitor Aliases
+alias mon-laptop  1680x1050
+alias mon-desktop 1920x1080
+
+# Size Aliases
+alias half-x            screenSizeX/2
+alias half-y            screenSizeY/2
+alias third-x           screenSizeX/3
+alias third-y           screenSizeY/3
+alias quarter-x         screenSizeX/4
+alias quarter-y         screenSizeY/4
+alias sixth-x           screenSizeX/6
+alias sixth-y           screenSizeY/6
+alias eighth-x          screenSizeX/8
+alias eighth-y          screenSizeY/8
+
+# Location Aliases
+alias upper-left        screenOriginX;screenOriginY
+alias middle-left       screenOriginX;screenOriginY+${half-y}
+alias upper-center      screenOriginX+${half-x};screenOriginY
+alias lower-center      screenOriginX+${half-x};screenOriginY+${half-y}
+
+# Postition Aliases
+alias full              move screenOriginX;screenOriginY                                   screenSizeX;screenSizeY            ${mon-desktop}
+alias left-half         move ${upper-left}      ${half-x};screenSizeY   ${mon-desktop}
+alias right-half        move ${upper-center}    ${half-x};screenSizeY   ${mon-desktop}
+
+alias upper-right-quad  move ${upper-center}                                               ${half-x};${half-y}        ${mon-desktop}
+alias 2-skype           move screenOriginX;screenOriginY                                   ${sixth-x};${half-y}        ${mon-desktop}
+alias 2-messages        move screenOriginX+${sixth-x};screenOriginY                        ${sixth-x};${half-y}        ${mon-desktop}
+alias 2-messenger       move screenOriginX+${third-x};screenOriginY                        ${sixth-x};${half-y}        ${mon-desktop}
+alias 2-nvalt           move screenOriginX+5*${eighth-x};screenOriginY+${half-y}           3*${eighth-x};${half-y}      ${mon-desktop}
+alias 2-spotify         move screenOriginX;screenOriginY+${half-y}                         5*${eighth-x};${half-y}      ${mon-desktop}
+alias 2-preview         move screenOriginX;screenOriginY                                   ${half-x};5*${eighth-y}      ${mon-desktop}
+alias 2-finder          move screenOriginX;screenOriginY+5*${eighth-y}                     ${half-x};3*${eighth-y}      ${mon-desktop}
+alias 2-preview-prog    move screenOriginX+${half-x};screenOriginY                         ${half-x};screenSizeY          ${mon-desktop}
+
+# Laptop Layout
+layout laptop 'Google Chrome':REPEAT    ${full}
+
+# Split Chrome
+layout split-chrome 'Google Chrome':MAIN_FIRST  ${left-half} | ${right-half}
+
+# Desktop Layout
+layout desktop 'Firefox':REPEAT                 ${full}
+layout desktop 'Google Chrome':REPEAT           ${full}
+layout desktop 'Safari':REPEAT                  ${full}
+layout desktop 'Textual':REPEAT                 ${upper-right-quad}
+layout desktop 'Skype':REPEAT                   ${2-skype}
+layout desktop 'Messages':REPEAT                ${2-messages}
+layout desktop 'Microsoft Messenger':REPEAT     ${2-messenger}
+layout desktop 'nvALT':REPEAT                   ${2-nvalt}
+layout desktop 'Spotify':REPEAT                 ${2-spotify}
+layout desktop 'Preview':IGNORE_FAIL,MAIN_LAST  ${2-preview} | ${2-preview-prog}
+layout desktop 'Finder':REPEAT                  ${2-finder}
+layout desktop 'MacVim':REPEAT                  ${2-preview-prog}
+layout desktop 'Microsoft Word':REPEAT          ${2-preview-prog}
+layout desktop 'LibreOffice':REPEAT             ${2-preview-prog}
+layout desktop 'iTerm':REPEAT                   ${full}
+
+# Default Layouts
+#default laptop  resolutions:${mon-laptop}
+default desktop resolutions:${mon-desktop};${mon-laptop}
+
+# Layout Bindings
+bind up:cmd;alt layout desktop
+bind down:cmd;alt layout split-chrome

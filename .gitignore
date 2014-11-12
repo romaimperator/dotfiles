@@ -1,4 +1,5 @@
 *.DS_Store
+
 /Applications
 /BBTRepair.spf
 /BTDropbox
@@ -17,11 +18,13 @@
 /Pictures
 /Public
 /Shows
+/Sick-Beard
 /Sites
 /Sites_blog
 /Stuff
 /VirtualBox VMs
 /Warhammer Fantasy
+
 /bad code examples
 /bin
 /build
@@ -32,11 +35,14 @@
 /go-pear.phar
 /nist_fips.txt
 /office for mac key.rtf
+/other
 /pear
 /points query ordered more.csv
 /practice
 /projects
 /states with names.csv
+/sync_feral_cron.log
+/sync_feral_log.log
 /temp rtorrent
 /test county parsed csv.txt
 /test county python list.txt
@@ -46,6 +52,7 @@
 /virus_removal.txt
 /Your Deceptive Mind
 /wordpress
+
 .CFUserTextEncoding
 .Trash
 .Xauthority
@@ -76,12 +83,12 @@
 .rnd
 .rvm
 .sh_history
-.slate
 .smb
 .ssh
 .subversion
 .unison
 .viminfo
+.vim/bundle
 .wireshark
 .wireshark-etc
 .xbmc
