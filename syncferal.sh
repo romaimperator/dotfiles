@@ -4,7 +4,7 @@ pass=BOIsX7YQF8Vo3Eip
 host=hestia.feralhosting.com
 remote_dir="private/rtorrent/lftp"
 #remote_dir="private/rtorrent/completed"
-local_dir="/Volumes/other/torrents/testing_extraction"
+local_dir="/Users/dan/other/torrents/testing_extraction"
 
 SEGMENTS=15
 
