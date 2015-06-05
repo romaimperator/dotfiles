@@ -1,9 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/dan/projects/purescript-rails/lib/purescript'
-let g:netrw_dirhist_2='/Users/dan/projects/test_pure/config'
-let g:netrw_dirhist_3='/Users/dan/projects/asi/config/deploy'
-let g:netrw_dirhist_4='/Users/dan/projects/asi/config'
-let g:netrw_dirhist_5='/Users/dan/projects/testingnewrails/blah'
-let g:netrw_dirhist_6='/Users/dan/projects/testingnewrails/blah/config'
-let g:netrw_dirhist_7='/Users/dan/.vim'
+let g:netrw_dirhist_cnt =0
