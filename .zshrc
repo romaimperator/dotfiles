@@ -64,6 +64,9 @@ export LSCOLORS="ExGxBxDxCxEgEdxbxgxcxd"
 export GREP_OPTIONS="--color"
 export EDITOR=vim
 
+# Go Lang Var
+export GOPATH=/Users/dan/projects/go_chat/
+
 # MYSQL Database Vars
 export MYSQL_USERNAME='root'
 export MYSQL_PASSWORD='dell8100'
