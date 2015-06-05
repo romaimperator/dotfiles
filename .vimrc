@@ -2,11 +2,11 @@ set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " My Bundles here:
 "
@@ -24,6 +24,9 @@ Plugin 'guns/xterm-color-table.vim'
 Plugin 'vim-scripts/molokai'
 Plugin 'altercation/vim-colors-solarized'
 
+" Dispatch
+Plugin 'tpope/vim-dispatch.git'
+
 " Syntax Repos
 Plugin 'tpope/vim-commentary.git'
 Plugin 'tpope/vim-cucumber'
@@ -31,12 +34,12 @@ Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-rails.git'
 Plugin 'tpope/vim-rbenv.git'
+Plugin 'tpope/vim-markdown'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'chrisbra/csv.vim'
 Plugin 'wlangstroth/vim-haskell'
 Plugin 'pangloss/vim-javascript'
 Plugin 'groenewege/vim-less'
-Plugin 'tpope/vim-markdown'
 Plugin 'sunaku/vim-ruby-minitest'
 Plugin 'mmalecki/vim-node.js'
 Plugin 'ajf/puppet-vim'
@@ -48,7 +51,11 @@ Plugin 'slim-template/vim-slim'
 Plugin 'timcharper/textile.vim'
 Plugin 'jgdavey/tslime.vim'
 
+Plugin 'scrooloose/syntastic'
+
 Plugin 'junegunn/vim-easy-align'
+
+call vundle#end()            " required
 
 "call plug#begin('~/.vim/bundle')
 "
@@ -125,10 +132,32 @@ map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-l> <C-W>l
 map <C-s> :w<CR>
+nmap <leader>j :lnext<CR>
+nmap <leader>k :lprevious<CR>
 au BufNewFile,BufRead *.jsm setf javascript
 
 au BufEnter /private/tmp/crontab.* setl backupcopy=yes
 
+" Default sessionoptions
+" set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize
+set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" STATUS LINE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+:set statusline=%<%f\ (%{&ft})\ %-4(%m%)%=%-19(%3l,%02c%03V%)
+
+" Syntastic Suggested Options
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+"let g:syntastic_ruby_checkers = ['ruby', 'rubocop']
+let g:syntastic_aggregate_errors = 1
 
 function AlignBlock() range
     if col(".") > 1
@@ -178,6 +207,7 @@ set winwidth=79
 set winheight=5
 set winminheight=5
 set winheight=999
+set noequalalways
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
@@ -200,7 +230,7 @@ let mapleader=","
 
 
 " GRB: use fancy buffer closing that doesn't close the split
-cnoremap <expr> bd (getcmdtype() == ':' ? 'Bclose' : 'bd')
+"cnoremap <expr> bd (getcmdtype() == ':' ? 'Bclose' : 'bd')
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -253,18 +283,25 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COMMAND-T CONFIG
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+let g:CommandTFileScanner="git" " Controls the file scanner used
+let g:CommandTMaxHeight=30      " Sets the maximum height of the results window
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RUNNING TESTS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-map <leader>a :call RunTests('')<cr>
-map <leader>c :w\|:!script/features<cr>
-map <leader>w :w\|:!script/features --profile wip<cr>
+nnoremap <leader>t :call RunTestFile()<cr>
+nnoremap <leader>T :call RunNearestTest()<cr>
+nnoremap <leader>a :call RunTests('')<cr>
+nnoremap <leader>c :w\|:!script/features<cr>
+nnoremap <leader>w :w\|:!script/features --profile wip<cr>
+nnoremap <leader>r :w\|:!script/features @rerun.txt<cr>
 "map <leader>c :w\|:call Send_to_Tmux("script/features\n")<cr>
 "map <leader>w :w\|:call Send_to_Tmux("script/features --profile wip\n")<cr>
+nnoremap <leader>s :A<cr>
 
 function! RunTestFile(...)
     if a:0
@@ -274,7 +311,7 @@ function! RunTestFile(...)
     endif
 
     " Run the tests for the previously-marked file.
-    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\|_test.py\)$') != -1
+    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\|_test.py\|_test.go\)$') != -1
     if in_test_file
         call SetTestFile()
     elseif !exists("t:grb_test_file")
@@ -338,11 +375,11 @@ function! InsertStatuslineColor(mode)
   endif
 endfunction
 
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi statusline guibg=green
+"au InsertEnter * call InsertStatuslineColor(v:insertmode)
+"au InsertLeave * hi statusline guibg=green
 
 " default the statusline to green when entering Vim
-hi statusline guibg=green
+"hi statusline guibg=green
 
 " strip trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
