@@ -6,22 +6,15 @@ remote_dir="private/rtorrent/lftp"
 #remote_dir="private/rtorrent/completed"
 local_dir="/Users/dan/other/torrents/testing_extraction"
 
-SEGMENTS=15
+SEGMENTS=60
 
 trap "rm -f /tmp/syncferal.lock" SIGINT SIGTERM
 lftp_download() {
-  if [ -e /tmp/syncferal.lock ]
-    then
-    echo "Syncferal is running already."
-    exit 1
-  else
-    touch /tmp/syncferal.lock
-
   #set ftp:ssl-allow no
     #lftp -u $login,$pass ftp://$host << EOF
     /usr/local/bin/lftp -p 22 -u $login,$pass sftp://$host << EOF
 #set net:limit-total-rate 2560K:100K
-set net:limit-total-rate 5500K:200K
+set net:limit-total-rate 6500K:300K
 #set sftp:connect-program sftp
 #set ssl:verify-certificate no
 set ftp:ssl-protect-data yes
@@ -36,7 +29,7 @@ set net:max-retries 5
 set pget:save-status 1
 set pget:default-n $SEGMENTS
 set mirror:use-pget-n $SEGMENTS
-set mirror:parallel-transfer-count 1
+set mirror:parallel-transfer-count 4
 set mirror:parallel-directories true
 set ftp:nop-interval 10
 set cache:enable true
@@ -47,10 +40,7 @@ EOF
   echo "lftp sync complete."
 
 #lftp_download
-
-  /bin/rm -f /tmp/syncferal.lock
 #exit 0
-fi
 }
 
 
@@ -236,11 +226,32 @@ trap "rm -f /tmp/syncferal.lock && exit 1" SIGINT SIGTERM
 #main
 #main2
 
-/usr/bin/ssh -n feralnew bash -c "'
+# Ensure only a single copy is running
+if [ -e /tmp/syncferal.lock ]
+  then
+  echo "Syncferal is running already."
+  exit 1
+else
+  touch /tmp/syncferal.lock
+fi
+
+exec 5>&1
+more_files_left=true
+while [ "$more_files_left" = true ]; do
+  remaining_torrents_output=$(/usr/bin/ssh -n feralnew bash -c "'
 python move_files_to_lftp.py
-'" &&
-lftp_download &&
-/usr/bin/ssh -n feralnew bash -c "'
+'" | tee >(cat - >&5))
+  number_of_remaining_torrents=$(echo "$remaining_torrents_output" | grep 'Torrents left:' | awk '{ print $3 }')
+  if [ "$number_of_remaining_torrents" -gt 0 ]; then
+    more_files_left=true
+  else
+    more_files_left=false
+  fi
+  lftp_download &&
+  /usr/bin/ssh -n feralnew bash -c "'
 python multicall_xmlrpc.py
 '"
+done
+
+/bin/rm -f /tmp/syncferal.lock
 
