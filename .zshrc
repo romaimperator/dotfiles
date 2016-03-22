@@ -69,7 +69,7 @@ export GOPATH=/Users/dan/projects/go_chat/
 
 # MYSQL Database Vars
 export MYSQL_USERNAME='root'
-export MYSQL_PASSWORD='dell8100'
+export MYSQL_PASSWORD='password'
 
 # Increase history length
 export HISTSIZE=100000
